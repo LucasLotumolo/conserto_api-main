@@ -17,11 +17,11 @@ public class JwtTokenService<JWTVerifier> {
     @Value("${senha.principal.geracao.token}")
     private String secret;
 
-    public String gerarToken(Usuario usuario) {
+    public String gerarTokenJWT(Usuario usuario) {
         try {
             var algoritmo = Algorithm.HMAC256(secret);
             return JWT.create()
-                    .withIssuer("DISCIPLINA PW3")
+                    .withIssuer("DISCIPLINA PRW3")
                     .withSubject(usuario.getLogin())
                     .withExpiresAt(dataExpiracao())
                     .sign(algoritmo);
@@ -34,7 +34,7 @@ public class JwtTokenService<JWTVerifier> {
         try {
             var algoritmo = Algorithm.HMAC256(secret);
             com.auth0.jwt.JWTVerifier jwtv = JWT.require(algoritmo)
-                    .withIssuer("DISCIPLINA PW3")
+                    .withIssuer("DISCIPLINA PRW3")
                     .build();
             return jwtv.verify(tokenJWT).getSubject();
         } catch (JWTVerificationException exception){
